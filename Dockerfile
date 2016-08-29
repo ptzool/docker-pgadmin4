@@ -49,7 +49,7 @@ RUN apt-get update \
         && apt-get install -y --no-install-recommends ca-certificates wget expect \
         && apt-get install -y python-pip \
         && rm -rf /var/lib/apt/lists/* \
-        && wget -O pgadmin4-1.0b3-py2-none-any.whl "https://ftp.postgresql.org/pub/pgadmin3/pgadmin4/v1.0-beta3/pip/pgadmin4-1.0b3-py2-none-any.whl" \
+        && wget -O pgadmin4-1.0b3-py2-none-any.whl "https://ftp.postgresql.org/pub/pgadmin3/pgadmin4/v1.0-beta4/pip/pgadmin4-1.0b4-py2-none-any.whl" \
         && pip install pgadmin4-1.0b3-py2-none-any.whl \
         && rm pgadmin4-1.0b3-py2-none-any.whl \
         && ln -sf /home/pgadmin/.pgadmin/config_local.py  /usr/local/lib/python2.7/dist-packages/pgadmin4/config_local.py \
