@@ -34,24 +34,21 @@ RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=999 postgres
 RUN groupadd -r pgadmin --gid=998 && useradd -r -g pgadmin --uid=998 pgadmin
 
 # libpg
-ENV PG_MAJOR 9.6
-ENV PG_VERSION 9.6~beta4-1.pgdg16.04+1
-
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends postgresql-server-dev-$PG_MAJOR=$PG_VERSION postgresql-client-$PG_MAJOR=$PG_VERSION \
+	&& apt-get install -y --no-install-recommends postgresql-server-dev-9.6 postgresql-client-9.6  \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update \
         && apt-get install -y --no-install-recommends ca-certificates wget expect \
         && apt-get install -y python-pip \
         && rm -rf /var/lib/apt/lists/* \
-        && wget -O pgadmin4-1.0b3-py2-none-any.whl "https://ftp.postgresql.org/pub/pgadmin3/pgadmin4/v1.0-beta4/pip/pgadmin4-1.0b4-py2-none-any.whl" \
-        && pip install pgadmin4-1.0b3-py2-none-any.whl \
-        && rm pgadmin4-1.0b3-py2-none-any.whl \
+        && wget -O pgadmin4-1.0-py2-none-any.whl "https://ftp.postgresql.org/pub/pgadmin3/pgadmin4/v1.0/pip/pgadmin4-1.0-py2-none-any.whl" \
+        && pip install pgadmin4-1.0-py2-none-any.whl \
+        && rm pgadmin4-1.0-py2-none-any.whl \
         && ln -sf /home/pgadmin/.pgadmin/config_local.py  /usr/local/lib/python2.7/dist-packages/pgadmin4/config_local.py \
         && sed -i "s/DEFAULT_SERVER = 'localhost'/DEFAULT_SERVER = '0.0.0.0'/" /usr/local/lib/python2.7/dist-packages/pgadmin4/config.py
 
